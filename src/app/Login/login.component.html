@@ -1,0 +1,61 @@
+<header class="login-header">
+		<section class="container">
+			<div class="row text-center">
+				<div class="col-md-12 login-header">
+					<a href="javascript:void(0)"><img src="assets/images/logo.png" alt="Logo" class="img-responsive"/></a>	
+					<p>Who said money can't buy happiness</p>
+				  </div>
+			</div>
+		</section> 		
+</header>
+<alert-flash></alert-flash>
+<div class="container login-container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+				<h2>Login</h2>							
+				<div class="login-wrap">				
+					<form name="form" (ngSubmit)="f.form.valid && model.isValidEmail && login()" #f="ngForm" class="form-horizontal" novalidate>
+						<div>
+							<div class="col-xs-12">		
+															<md-input-container class="material-full-width">					  
+                              <input type="email" mdInput name="username" (blur)="validateEmailId()" placeholder="Email" [(ngModel)]="model.username" #username="ngModel" required />
+															</md-input-container>
+                              <div *ngIf="(f.submitted && !username.valid) || (f.submitted && !model.isValidEmail)" class="login-invalid">Please enter valid email id</div>
+							</div>
+						</div>
+						<div>
+							<div class="col-xs-12"> 
+								<md-input-container class="material-full-width">
+							  <input type="password" mdInput name="password" (blur)="validatePasswordLength()" [(ngModel)]="model.password" #password="ngModel" placeholder="Enter Password" required />
+								</md-input-container>
+                  <div *ngIf="f.submitted && !password.valid" class="login-invalid">Please enter password</div>
+									<!--<div *ngIf="model.passwordLengthError" class="help-block error">Password length should be between 6 to 12 characters</div>-->
+							</div>
+						</div>
+						<div class="form-group"> 
+							<div class="col-xs-12 text-right">
+							  <p><a href="javascript:void(0)">Forgot Password?</a></p>
+							</div>
+						</div>
+						<div class="form-group"> 
+							<div class="col-xs-12 button-wrap text-center">
+							 <button type="submit" md-raised-button class="btn btn-default primary-action-btn">Submit</button>
+							</div>
+						</div>
+						<div class="form-group"> 
+							<div class="col-xs-12 text-center">
+							  <p>Don't Have Account Yet? <a [routerLink]="['/register']">Sign Up</a> Now</p>
+							</div>
+						</div>
+					</form>				
+					<div class="login-footer">
+						<div class="row text-center">
+							<div class="col-md-12">
+								<p>Are You Vendor? Click Here To <a href="javascript:void(0)">Register</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

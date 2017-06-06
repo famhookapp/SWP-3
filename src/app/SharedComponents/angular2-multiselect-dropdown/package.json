@@ -1,0 +1,82 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular2-multiselect-dropdown",
+        "scope": null,
+        "escapedName": "angular2-multiselect-dropdown",
+        "name": "angular2-multiselect-dropdown",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "G:\\MilkDelivery\\CodeProject\\UI\\WebApp\\gmjack-web"
+    ]
+  ],
+  "_from": "angular2-multiselect-dropdown@latest",
+  "_id": "angular2-multiselect-dropdown@1.1.2",
+  "_inCache": true,
+  "_location": "/angular2-multiselect-dropdown",
+  "_nodeVersion": "6.9.5",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular2-multiselect-dropdown-1.1.2.tgz_1496416761548_0.7850835879798979"
+  },
+  "_npmUser": {
+    "name": "solomon301",
+    "email": "solomon.terli@gmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular2-multiselect-dropdown",
+    "scope": null,
+    "escapedName": "angular2-multiselect-dropdown",
+    "name": "angular2-multiselect-dropdown",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular2-multiselect-dropdown/-/angular2-multiselect-dropdown-1.1.2.tgz",
+  "_shasum": "346520b7512dc677da738bfcc7249045c2e0efde",
+  "_shrinkwrap": null,
+  "_spec": "angular2-multiselect-dropdown",
+  "_where": "G:\\MilkDelivery\\CodeProject\\UI\\WebApp\\gmjack-web",
+  "angular-cli": {},
+  "dependencies": {
+    "bootstrap": "*",
+    "font-awesome": "*"
+  },
+  "description": "[![npm version](https://img.shields.io/npm/v/angular2-multiselect-dropdown.svg)](https://www.npmjs.com/package/angular2-multiselect-dropdown)",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "346520b7512dc677da738bfcc7249045c2e0efde",
+    "tarball": "https://registry.npmjs.org/angular2-multiselect-dropdown/-/angular2-multiselect-dropdown-1.1.2.tgz"
+  },
+  "gitHead": "b1f3a621dfd82a6987419a170179b55921faa131",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "solomon301",
+      "email": "solomon.terli@gmail.com"
+    }
+  ],
+  "name": "angular2-multiselect-dropdown",
+  "optionalDependencies": {},
+  "private": false,
+  "readme": "# Angular2 Multiselect Dropdown\r\n[![npm version](https://img.shields.io/npm/v/angular2-multiselect-dropdown.svg)](https://www.npmjs.com/package/angular2-multiselect-dropdown)\r\n\r\nAngular 2 multiselect dropdown component for web applications. Easy to integrate and use.\r\n\r\n\r\n# [Documentation](http://cuppalabs.github.io/components/multiselectDropdown) | [Demo](https://cuppalabs.github.io/angular2-multiselect-dropdown).\r\n\r\n## Getting Started\r\n### Installation\r\n- The Mutiselect Dropdown package is published on the [npm](https://www.npmjs.com/package/angular2-multiselect-dropdown) Registry. \r\n- Install the package :\r\n    `npm install angular2-multiselect-dropdown`\r\n\r\n- Once installed import `AngularMultiSelectModule` from the installed package into your module as follows:\r\n\r\n### Usage\r\nImport `AngularMultiSelectModule` into `NgModule` in `app.module.ts`\r\n```js\r\nimport { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';\r\n\r\n@NgModule({\r\n  // ...\r\n  imports: [\r\n    AngularMultiSelectModule,\r\n  ]\r\n  // ...\r\n})\r\n\r\n```\r\n\r\nDeclare the component data variables and options in your component where you want to consume the dropdown component.\r\n\r\n```js\r\n\r\nimport { Component, OnInit } from '@angular/core';\r\n\r\nexport class AppComponent implements OnInit {\r\n    dropdownList = [];\r\n    selectedItems = [];\r\n    dropdownSettings = {};\r\n    ngOnInit(){\r\n        this.dropdownList = [\r\n                              {\"id\":1,\"itemName\":\"India\"},\r\n                              {\"id\":2,\"itemName\":\"Singapore\"},\r\n                              {\"id\":3,\"itemName\":\"Australia\"},\r\n                              {\"id\":4,\"itemName\":\"Canada\"},\r\n                              {\"id\":5,\"itemName\":\"South Korea\"},\r\n                              {\"id\":6,\"itemName\":\"Germany\"},\r\n                              {\"id\":7,\"itemName\":\"France\"},\r\n                              {\"id\":8,\"itemName\":\"Russia\"},\r\n                              {\"id\":9,\"itemName\":\"Italy\"},\r\n                              {\"id\":10,\"itemName\":\"Sweden\"}\r\n                            ];\r\n        this.selectedItems = [\r\n                                {\"id\":2,\"itemName\":\"Singapore\"},\r\n                                {\"id\":3,\"itemName\":\"Australia\"},\r\n                                {\"id\":4,\"itemName\":\"Canada\"},\r\n                                {\"id\":5,\"itemName\":\"South Korea\"}\r\n                            ];\r\n        this.dropdownSettings = { \r\n                                  singleSelection: false, \r\n                                  text:\"Select Countries\",\r\n                                  selectAllText:'Select All',\r\n                                  unSelectAllText:'UnSelect All',\r\n                                  enableSearchFilter: true,\r\n                                  classes:\"myclass custom-class\"\r\n                                };            \r\n    }\r\n    onItemSelect(item:any){\r\n        console.log(item);\r\n        console.log(this.selectedItems2);\r\n    }\r\n    OnItemDeSelect(item:any){\r\n        console.log(item);\r\n        console.log(this.selectedItems2);\r\n    }\r\n    onSelectAll(items: any){\r\n        console.log(items);\r\n    }\r\n    onDeSelectAll(items: any){\r\n        console.log(items);\r\n    }\r\n}\r\n```\r\n\r\nAdd the following component tag in you template \r\n```html\r\n<angular2-multiselect [data]=\"dropdownList\" [(ngModel)]=\"selectedItems\" \r\n    [settings]=\"dropdownSettings\" \r\n    (onSelect)=\"onItemSelect($event)\" \r\n    (onDeSelect)=\"OnItemDeSelect($event)\"\r\n    (onSelectAll)=\"onSelectAll($event)\"\r\n    (onDeSelectAll)=\"onDeSelectAll($event)\"></angular2-multiselect>\r\n\r\n```\r\n\r\n### Settings\r\nThe following list of settings are supported by the component. Configure the settings to meet your requirement.\r\n\r\n| Setting         |Type    | Description            | Default Value |\r\n|:--- |:--- |:--- |:--- |\r\n| singleSelection | Boolean | To set the dropdown for single item selection only. | false |\r\n| text | String | Text to be show in the dropdown, when no items are selected. | 'Select' |\r\n| enableCheckAll | Boolean | Enable the option to select all items in list | false |\r\n| selectAllText | String | Text to display as the label of select all option | Select All |\r\n| unSelectAllText | String | Text to display as the label of unSelect option | UnSelect All |\r\n| enableSearchFilter | Boolean | Enable filter option for the list. | false |\r\n| maxHeight | Number | Set maximum height of the dropdown list in px. | 300 |\r\n| badgeShowLimit | Number | Limit the number of badges/items to show in the input field. If not set will show all selected. | All |\r\n| classes | String | Custom classes to the dropdown component. Classes are added to the dropdown selector tag. To add multiple classes, the value should be space separated class names.| '' |\r\n| limitSelection | Number | Limit the selection of number of items from the dropdown list. Once the limit is reached, all unselected items gets disabled. | none |\r\n\r\n### Callback Methods\r\n- `onSelect` - Return the selected item on selection.\r\n    Example : (onSelect)=\"onItemSelect($event)\"\r\n- `onDeSelect` - Return the un-selected item on un-selecting.\r\n    Example : (onDeSelect)=\"OnItemDeSelect($event)\"\r\n- `onSelectAll` - Return the list of all selected items.\r\n    Example : (onSelectAll)=\"onSelectAll($event)\"\r\n- `onDeSelectAll` - Returns an empty array.\r\n    Example : (onDeSelectAll)=\"onDeSelectAll($event)\"\r\n    \r\n\r\n## Run locally\r\n- Clone the repository or downlod the .zip,.tar files.\r\n- Run `npm install`\r\n- Run `ng serve` for a dev server\r\n- Navigate to `http://localhost:4200/`\r\n The app will automatically reload if you change any of the source files.\r\n\r\n## License\r\nMIT License.\r\n",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "ng": "ng",
+    "start": "ng serve",
+    "test": "ng test"
+  },
+  "version": "1.1.2"
+}

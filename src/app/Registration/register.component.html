@@ -1,0 +1,99 @@
+<header class="login-header">
+		<section class="container">
+			<div class="row text-center">
+				<div class="col-md-12 login-header">
+					<a href="javascript:void(0)"><img src="assets/images/logo.png" alt="Logo" class="img-responsive"/></a>	
+					<p>Who said money can't buy happiness</p>
+				  </div>
+			</div>
+		</section> 		
+	</header>
+	<alert-flash></alert-flash>
+<div class="container login-container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">			
+				<h2>Registration</h2>
+				<div class="login-wrap">		
+					<form role="form" name="login-form" #f="ngForm" class="form-horizontal" (ngSubmit)="addUserValues(f.form)">
+						<div class="register-form-group">
+							<div class="col-xs-6 change-pr5">
+								<md-input-container class="material-full-width">
+							  <input type="text" maxlength="50" mdInput name="firstname" id="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" placeholder="First Name" required>
+								</md-input-container>
+							</div>
+							<div class="col-xs-6 change-pl5">
+								<md-input-container class="material-full-width">
+							  <input type="text" maxlength="50" mdInput name="lastname" id="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" placeholder="Last Name" required>
+								</md-input-container>
+							</div>
+							<div class="col-xs-12">
+								<div *ngIf="(f.submitted && !firstname.valid) || (f.submitted && !lastname.valid)" class="login-invalid">First and Last name is required</div>
+							</div>							
+						</div>						
+						<div class="register-form-group">
+							<div class="col-xs-12"> 
+								<md-input-container class="material-full-width">								
+							  <input type="email" mdInput name="username" maxlength="50" (blur)="validateEmailId()" id="username" placeholder="Email" [(ngModel)]="model.username" #username="ngModel" required>								
+								</md-input-container>
+								<div *ngIf="(f.submitted && !username.valid) || (f.submitted && !model.isValidEmail)" class="login-invalid">Please enter valid email id</div>
+								<div *ngIf="((f.submitted && this.model.isUserExist) || (this.model.isUserExist)) && model.isValidEmail && username.valid" class="login-invalid">{{this.model.existMessage}}</div>
+							</div>
+						</div>
+						<div class="register-form-group">
+							<div class="col-xs-12"> 
+								<md-input-container class="material-full-width">								
+							  <input type="text" mdInput maxlength="12" name="password" (blur)="validatePassword()" id="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" required>								
+								</md-input-container>
+								<div *ngIf="(f.submitted && !password.valid) || (f.submitted && !model.isValidPassword)" class="login-invalid">Password should be minimum 8 and maximum 12 characters.</div>								
+							</div>
+						</div>
+						<div class="register-form-group">
+							<div class="col-xs-12"> 
+								<md-input-container class="material-full-width">								
+							  <input type="text" mdInput maxlength="12" name="confirmpassword" (blur)="validateConfirmPassword()" id="confirmpassword" placeholder="Confirm Password" [(ngModel)]="model.confirmpassword" #confirmpassword="ngModel" required>								
+								</md-input-container>
+								<div *ngIf="(f.submitted && !confirmpassword.valid) || (f.submitted && !model.isValidConfirmPassword)" class="login-invalid">Password and Confirm Password should be same.</div>								
+							</div>
+						</div>
+						<div class="register-form-group">
+							<div class="col-xs-12"> 
+								<md-input-container class="material-full-width">
+							  <input type="text" mdInput name="mobile" id="mobile" (blur)="validateMobilenumber()" [(ngModel)]="model.mobile" #mobile="ngModel" placeholder="Mobile No." required>
+								</md-input-container>
+								<div *ngIf="(f.submitted && !mobile.valid) || (f.submitted && !model.isValidMobile)" class="login-invalid">Please enter valid mobile</div>
+							</div>
+						</div>
+						<div class="register-form-group">
+							<div class="col-xs-12">
+								<md-input-container class="material-full-width"> 
+							  <input type="text" mdInput name="address1" maxlength="100" id="address1" [(ngModel)]="model.address1" #address1="ngModel" placeholder="Bldg & Flat No.">
+								</md-input-container>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12"> 							  
+								<angular2-multiselect name="state" [disable]="stateDisable" [data]="stateDropdownList" [(ngModel)]="stateSelectedItems" [settings]="stateDropdownSettings" (onSelect)="onStateItemSelect($event)" (onDeSelect)="OnStateItemDeSelect($event)"></angular2-multiselect>							  
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12"> 							  
+								<angular2-multiselect name="city" [disable]="cityDisable" [data]="cityDropdownList" [(ngModel)]="citySelectedItems" [settings]="cityDropdownSettings" (onSelect)="onCityItemSelect($event)" (onDeSelect)="OnCityItemDeSelect($event)"></angular2-multiselect>							  
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12"> 
+							  <!--<angular2-multiselect name="test2" [data]="basicExampleList" [(ngModel)]="basicExampleSelectedItems" [settings]="basicExampleSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"  (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>-->
+								<angular2-multiselect name="area" [disable]="areaDisable" [data]="areaDropdownList" [(ngModel)]="areaSelectedItems" [settings]="areaDropdownSettings"></angular2-multiselect>
+							</div>
+						</div>
+						<div class="form-group"> 
+							<div class="col-xs-12 button-wrap text-center">
+							  <button type="button" md-raised-button class="btn btn-default" (click)="CancelClick()">Cancel</button>
+							  <button type="submit" md-raised-button class="btn btn-default primary-action-btn">Register</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
