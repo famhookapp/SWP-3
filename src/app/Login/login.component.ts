@@ -39,13 +39,27 @@ export class LoginComponent implements OnInit {
                     this.alert.error(data.message);
                 }
                 else {
-                    this.sharedServe.isLoginPage = false;
-                    this.router.navigate([this.returnUrl]);
+                    this.sharedServe.setCellNo(data.details.cellno);
+                    if(data.details.ismobverified)
+                    {
+                        this.sharedServe.isLoginPage = false;
+                        this.router.navigate([this.returnUrl]);
+                    }
+                    else
+                    {
+                        this.router.navigate(['/mobverify']);
+                    }
+                    
                 }
             },
             error => {
-                this.alert.error(error);
-                this.loading = false;
+                if(error && error._body)
+                {
+                    let errMsg = JSON.parse(error._body).message;
+                    this.alert.error(errMsg);
+                    this.loading = false;
+                }
+                
             });
     }
 

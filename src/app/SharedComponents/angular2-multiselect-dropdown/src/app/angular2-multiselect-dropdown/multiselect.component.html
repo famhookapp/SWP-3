@@ -1,6 +1,6 @@
 <div class="cuppa-dropdown" (clickOutside)="closeDropdown()">
     <div class="selected-list">
-        <button class="c-btn" (click)="toggleDropdown()" *ngIf="!disable">
+        <button class="c-btn" (click)="toggleDropdown()" *ngIf="!disable" type="button">
             <span *ngIf="selectedItems.length == 0" class="register-search-dropdown-text">{{settings.text}}</span>
             <span *ngIf="settings.singleSelection">
                 <span *ngFor="let item of selectedItems;trackBy: trackByFn;">
@@ -16,7 +16,7 @@
             <span *ngIf="selectedItems.length > settings.badgeShowLimit">+{{selectedItems.length - settings.badgeShowLimit }}</span>
             <span class="fa" [ngClass]="{'fa-angle-down': !isActive,'fa-angle-up':isActive}"></span>
         </button>    
-        <button class="c-btn" *ngIf="disable">
+        <button class="c-btn" *ngIf="disable" type="button">
             <span class="register-search-button-disable register-search-dropdown-text">{{settings.text}}</span>            
             <span class="fa fa-angle-down register-search-button-disable"></span>
         </button>        

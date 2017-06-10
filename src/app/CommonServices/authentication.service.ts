@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 import {ConfigurationData} from './configuration.model';
 import { UserModel } from '../UserInfo/user.model';
+import {SharedServiceGM} from '../CommonServices/shared.service';
 
 @Injectable()
 export class AuthenticationService{
@@ -13,7 +14,8 @@ export class AuthenticationService{
     private cookieOption: CookieOptionsArgs = {};
 
     constructor(private http: Http, 
-    private cookieServe:CookieService){}
+    private cookieServe:CookieService,
+    private sharedServe:SharedServiceGM){}
     //private authInfo: any = {};
 
 
@@ -32,9 +34,10 @@ export class AuthenticationService{
                 //localStorage.setItem(ConfigurationData.currentUserName, userInfo.token);
                 var cookieDate = new Date();
                 cookieDate.setDate(cookieDate.getDate() + 1);
-                 this.cookieOption.expires = cookieDate;                 
-                 this.cookieServe.put(ConfigurationData.currentUserName, userInfo.token, this.cookieOption);
-                 this.cookieServe.put(ConfigurationData.currentUserDetails, JSON.stringify(userInfo.details), this.cookieOption);
+                this.cookieOption.expires = cookieDate;                 
+                this.cookieServe.put(ConfigurationData.currentUserName, userInfo.token, this.cookieOption);
+                let userInformation = {fname:userInfo.details.firstname,lname:userInfo.details.lastname,ismobverified:userInfo.details.ismobverified};
+                this.cookieServe.put(ConfigurationData.currentUserDetails, JSON.stringify(userInformation), this.cookieOption);
             }
             return response.json();
         });
@@ -64,7 +67,71 @@ export class AuthenticationService{
 
         return this.http.post(ConfigurationData.appBLURL + 'member/putUserDetails', authInfo, options)
         .map((response : Response) => {
-            let userInfo = response.json();            
+            let userInfo = response.json();                        
+            if(userInfo.status == ConfigurationData.successStatus && userInfo.token)
+            {
+                //store the token info in session.
+                //localStorage.setItem(ConfigurationData.currentUserName, userInfo.token);
+                var cookieDate = new Date();
+                cookieDate.setDate(cookieDate.getDate() + 1);
+                this.cookieOption.expires = cookieDate;                 
+                this.cookieServe.put(ConfigurationData.currentUserName, userInfo.token, this.cookieOption);
+                this.cookieServe.put(ConfigurationData.currentUserDetails, JSON.stringify(userInfo.details), this.cookieOption);
+            }
+            return response.json();
+        });
+    }
+
+    /**Verify the code sent on users mob */
+    verifyMobile(code:string){
+        var tokenKey = this.sharedServe.getTokenKey();
+
+        let authInfo = {token:tokenKey, mobilecode:code};  
+        //let bodyString = JSON.stringify(authInfo); //Stringify object
+        let headers = new Headers({ 'Content-Type': 'application/json' }); //Set content type to JSON
+        let options = new RequestOptions({ headers: headers, withCredentials: true});
+
+        return this.http.post(ConfigurationData.appBLURL + 'member/verifyMob', authInfo, options)
+        .map((response : Response) => {            
+            return response.json();
+        });
+    }
+
+    /**Regenerate the mobile code. */
+    regenerateMobCode(mobileNo){
+        var tokenKey = this.sharedServe.getTokenKey();
+
+        let authInfo = {mobile:mobileNo, token:tokenKey};  
+        
+        //let bodyString = JSON.stringify(authInfo); //Stringify object
+        let headers = new Headers({ 'Content-Type': 'application/json' }); //Set content type to JSON
+        let options = new RequestOptions({ headers: headers, withCredentials: true});
+
+        return this.http.post(ConfigurationData.appBLURL + 'member/regenerateMob', authInfo, options)
+        .map((response : Response) => {            
+            return response.json();
+        });
+    }
+
+    /**Forgot password send email and generate validation code. */
+    forgotPassword(emailId){        
+        let authInfo = {email:emailId};  
+        let headers = new Headers({ 'Content-Type': 'application/json' }); //Set content type to JSON
+        let options = new RequestOptions({ headers: headers, withCredentials: true});
+
+        return this.http.post(ConfigurationData.appBLURL + 'member/forgotPass', authInfo, options)
+        .map((response : Response) => {            
+            return response.json();
+        });
+    }
+
+    /**Confirm the new password and update the same */
+    confirmPasswordChange(emailId,token,newpassword){
+        let authInfo = {email:emailId, token:token, newpassword:newpassword};                  
+        let headers = new Headers({ 'Content-Type': 'application/json' }); //Set content type to JSON
+        let options = new RequestOptions({ headers: headers, withCredentials: true});
+        return this.http.post(ConfigurationData.appBLURL + 'member/changePass', authInfo, options)
+        .map((response : Response) => {            
             return response.json();
         });
     }

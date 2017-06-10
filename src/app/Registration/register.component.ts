@@ -174,7 +174,7 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    addUserValues(formObj) {
+    addUserValues(formObj, f) {       
         if (formObj.valid && this.model.isValidEmail && !this.model.isUserExist && this.model.isValidPassword && this.model.isValidConfirmPassword && this.model.isValidMobile) {
             if (!this.validateNameLength()) {
                 this.alert.error(GlobalMessages.registrationNameFieldLenght);
@@ -200,7 +200,15 @@ export class RegisterComponent implements OnInit {
                         }
                         else {
                             this.alert.success(result.message, true);
-                            this.router.navigate(['/mobverify']);
+
+                            if (result.token) {
+                                this.sharedServe.setCellNo(this.model.mobile);
+                                this.router.navigate(['/mobverify']);
+                            }
+                            else {
+                                this.router.navigate(['/login']);
+                            }
+
                         }
                     });
                 }
@@ -213,7 +221,6 @@ export class RegisterComponent implements OnInit {
         else {
             this.alert.error(GlobalMessages.registrationFormInvalid);
         }
-
     }
 
     validateNameLength() {
@@ -265,8 +272,7 @@ export class RegisterComponent implements OnInit {
         else {
             this.model.isValidConfirmPassword = false;
         }
-    }
-
+    }   
     CancelClick() {
         this.router.navigate(['/login']);
     }

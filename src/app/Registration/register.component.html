@@ -14,7 +14,7 @@
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">			
 				<h2>Registration</h2>
 				<div class="login-wrap">		
-					<form role="form" name="login-form" #f="ngForm" class="form-horizontal" (ngSubmit)="addUserValues(f.form)">
+					<form role="form" name="login-form" #f="ngForm" class="form-horizontal">
 						<div class="register-form-group">
 							<div class="col-xs-6 change-pr5">
 								<md-input-container class="material-full-width">
@@ -58,7 +58,7 @@
 						<div class="register-form-group">
 							<div class="col-xs-12"> 
 								<md-input-container class="material-full-width">
-							  <input type="text" mdInput name="mobile" id="mobile" (blur)="validateMobilenumber()" [(ngModel)]="model.mobile" #mobile="ngModel" placeholder="Mobile No." required>
+							  <input type="text" maxlength="10" mdInput name="mobile" id="mobile" (blur)="validateMobilenumber()" [(ngModel)]="model.mobile" #mobile="ngModel" placeholder="Mobile No." required>
 								</md-input-container>
 								<div *ngIf="(f.submitted && !mobile.valid) || (f.submitted && !model.isValidMobile)" class="login-invalid">Please enter valid mobile</div>
 							</div>
@@ -89,7 +89,7 @@
 						<div class="form-group"> 
 							<div class="col-xs-12 button-wrap text-center">
 							  <button type="button" md-raised-button class="btn btn-default" (click)="CancelClick()">Cancel</button>
-							  <button type="submit" md-raised-button class="btn btn-default primary-action-btn">Register</button>
+							  <button type="submit" md-raised-button class="btn btn-default primary-action-btn" (click)="addUserValues(f.form, f)">Register</button>
 							</div>
 						</div>
 					</form>

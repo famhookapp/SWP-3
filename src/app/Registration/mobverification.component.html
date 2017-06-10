@@ -8,26 +8,30 @@
 			</div>
 		</section> 		
 	</header>
-	<alert-flash></alert-flash>
+	<alert-flash></alert-flash>	
 <div class="container login-container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">			
 				<h2>Mobile Verification</h2>
-				<div>Please enter the code below, sent on your registered mobile number.</div>
+				<div>Please enter the code sent on your below mobile number.<br> You can update your mobile number below and Resend the code.</div>
 				<div class="login-wrap">		
-					<form role="form" name="login-form" #f="ngForm" class="form-horizontal">																	
+					<form role="form" name="login-form" #f="ngForm" class="form-horizontal" (ngSubmit)="verifyMobCode()">
+						<div *ngIf="(f.submitted && model.isCodeNaN) || model.isCodeNaN" class="login-invalid">Please enter only numbers in all boxes.</div>						
+						<md-input-container class="material-full-width">
+							  <input type="text" maxlength="10" mdInput name="mobile" id="mobile" (blur)="validateMobilenumber()" [(ngModel)]="model.cellnumber" #mobile="ngModel" placeholder="Update Mobile No." required>
+						</md-input-container>
 						<div class="form-group">
 							<div class="col-xs-12"> 
-							  <input type="text" maxlength="1" class="form-control mob-verify-box" id="mobile-no" placeholder="_">
-								<input type="text" maxlength="1" class="form-control mob-verify-box" id="mobile-no" placeholder="_">
-								<input type="text" maxlength="1" class="form-control mob-verify-box" id="mobile-no" placeholder="_">
-								<input type="text" maxlength="1" class="form-control mob-verify-box" id="mobile-no" placeholder="_">
+							  <input type="text" maxlength="1" class="form-control mob-verify-box" focus id="number1" name="number1" placeholder="_" tabindex="1" [(ngModel)]="model.number1" #number1="ngModel" (keyup)="validateAndMoveFocus($event)">
+								<input type="text" maxlength="1" class="form-control mob-verify-box" id="number2" name="number2" placeholder="_" tabindex="2" [(ngModel)]="model.number2" #number2="ngModel" (keyup)="validateAndMoveFocus($event)">
+								<input type="text" maxlength="1" class="form-control mob-verify-box" id="number3" name="number3" placeholder="_" tabindex="3" [(ngModel)]="model.number3" #number3="ngModel" (keyup)="validateAndMoveFocus($event)">
+								<input type="text" maxlength="1" class="form-control mob-verify-box" id="number4" name="number4" placeholder="_" tabindex="4" [(ngModel)]="model.number4" #number4="ngModel" (keyup)="validateAndMoveFocus($event)">
 							</div>
 						</div>						
 						<div class="form-group"> 
 							<div class="col-xs-12 button-wrap text-center">
-							  <button type="button" md-raised-button class="btn btn-default">Resend</button>
-							  <button type="submit" md-raised-button class="btn btn-default primary-action-btn">Verify</button>
+							  <button type="button" md-raised-button class="btn btn-default" (click)="resendCode()" tabindex="5">Resend</button>
+							  <button type="submit" md-raised-button class="btn btn-default primary-action-btn" tabindex="6">Verify</button>
 							</div>
 						</div>
 					</form>

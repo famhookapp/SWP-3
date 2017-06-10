@@ -5,13 +5,12 @@ import {CookieService} from 'angular2-cookie/core';
 import {ConfigurationData} from '../CommonServices/configuration.model';
 
 @Injectable()
-export class AuthGuard implements CanActivate{
+export class AuthGuardRegister implements CanActivate{
 
     constructor(private router:Router,private cookieServe:CookieService){}
     canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot){
-        let currentUserInfo = this.cookieServe.get(ConfigurationData.currentUserName);
-        let currentUserDetails = JSON.parse(this.cookieServe.get(ConfigurationData.currentUserDetails));        
-        if(currentUserInfo && currentUserDetails.ismobverified){
+        let currentUserInfo = this.cookieServe.get(ConfigurationData.currentUserName);        
+        if(currentUserInfo){
             return true;
         }
 

@@ -8,6 +8,7 @@ import {ProductSearchModel} from '../Products/productsearch.model';
 export class SharedServiceGM{
     isLoginPage : boolean = false;
     productSearchModel:ProductSearchModel;
+    public cellnumber:string;
 
     constructor(private cookieServe:CookieService){
         this.productSearchModel = new ProductSearchModel();
@@ -33,9 +34,19 @@ export class SharedServiceGM{
         this.productSearchModel.brandid = brandId;
         this.productSearchModel.categoryid = categoryId;
     }
-
+    
     public getProductSearch()
     {
         return this.productSearchModel;
+    }
+
+    public setCellNo(mob)
+    {
+        this.cellnumber = mob;
+    }
+
+    public getCellNo()
+    {
+        return this.cellnumber;
     }
 }
