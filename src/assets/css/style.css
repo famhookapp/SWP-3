@@ -1023,13 +1023,13 @@ input[type="checkbox"]:checked + label span {
 .btn-border-right {
 	border-right: 1px solid #ccd3da;
 }
-.alert {
+.alert-custom {
 	background: #C9E18B;
 	padding: 20px;
 	color: #394428;
 	border-radius: 2px;
 }
-.alert > p {
+.alert-custom > p {
 	font-size: 1em;
 }
 .error-icon {
@@ -1277,6 +1277,34 @@ footer .inner-footer-top  p:after {
 	height:50px;
 	font-size:1.5em;
 	text-align: center;
+}
+.cg-busy{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+    z-index:1001;
+}
+.cg-busy-backdrop {
+	background-color:white;
+	opacity:.7;
+}
+.cg-busy-spinner{
+	position: fixed;
+	top: 50%;
+	left: 50%;			
+	margin-top: -150px;
+  	margin-left: -115px;
+}
+.cg-busy-spinner-text{
+	position: fixed;
+	top: 50%;
+	left: 50%;	
+	font-size: 18px !important;	
+	font-weight: bold !important;
+	color:#3f51b5;
+	margin-left: -15px;
 }
 @media (min-width: 991px) {
 	.navbar-header {

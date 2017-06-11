@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     returnUrl: any = {};
     loading = false;
     model: any = {};
-
+    loadingPage:boolean = false;
     constructor(private router: Router,
         private route: ActivatedRoute,
         private authService: AuthenticationService,
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.authService.authenticateUser(this.model.username, this.model.password).subscribe(
+        this.loadingPage = true;
+        this.authService.authenticateUser(this.model.username, this.model.password).subscribe(            
             data => {
                 if (data && data.status == ConfigurationData.errorStatus) {
                     this.alert.error(data.message);
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit {
                     }
                     
                 }
+                this.loadingPage = false;
             },
             error => {
                 if(error && error._body)
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
                     this.alert.error(errMsg);
                     this.loading = false;
                 }
-                
+                this.loadingPage = false;
             });
     }
 

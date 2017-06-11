@@ -15,12 +15,12 @@ const appRoutes : Routes = [{path:'login', component:LoginComponent, pathMatch: 
     {path:'register', component:RegisterComponent, pathMatch: 'full'},
     {path:'forgotpass', component:ForgotPassword, pathMatch: 'full'},
     {path:'changepass', component:ChangePassword, pathMatch: 'full'},
-    {path:'mobverify', component:MobileVerificationComponent, canActivate:[AuthGuardRegister], pathMatch: 'full'},
+    {path:'mobverify', component:MobileVerificationComponent, pathMatch: 'full'},
     {path:'fullhouse', component:HeaderComponent, canActivate:[AuthGuard], children:[
         {path:'home', component:HomeComponent, outlet:'headeroutlet'},
         {path:'products', component:ProductList, outlet:'headeroutlet'}
     ]},    
-    {path:'**', redirectTo:'fullhouse/home'}];
+    {path:'**', redirectTo:'login'}];
 
 
 

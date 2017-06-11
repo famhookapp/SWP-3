@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, AfterViewInit, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit,ViewChild, AfterViewInit, ElementRef, Renderer, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {CookieService, CookieOptionsArgs} from 'angular2-cookie/core';
@@ -19,12 +19,17 @@ export class MobileVerificationComponent implements AfterViewInit {
     model:any = {};    
     focusme1:boolean = true;
     focusme3:boolean = false;
+
+    @ViewChild('number2') input1ElementRef;
+
      private cookieOption: CookieOptionsArgs = {};
     constructor(private el: ElementRef, 
     private authService: AuthenticationService,
     private alert: AlertService,private router: Router,
     private sharedServe:SharedServiceGM,
-    private cookieServe:CookieService){}
+    private cookieServe:CookieService,
+    private _ngZone: NgZone
+    ){}
     validateCode(event) {
         var k = event.keyCode;
         /* numeric inputs can come from the keypad or the numeric row at the top */
@@ -45,40 +50,37 @@ export class MobileVerificationComponent implements AfterViewInit {
         let textObj = this.el.nativeElement.querySelector('#number1');
         textObj.focus();
 
-        this.alert.error("You are successfully registered. Please verify your mobile number for smooth shopping.");
+        this.alert.error("You are successfully registered. Please verify your mobile number for smooth shopping.");       
         
     }
-    validateAndMoveFocus(event){
-        if(isNaN(this.model.number1) || isNaN(this.model.number2) || isNaN(this.model.number3) || isNaN(this.model.number4))
+    validateAndMoveFocus(event, nextCtrlName){
+        var allValuesAvailable = false;
+        if(this.model.number1.trim() && this.model.number2.trim() && this.model.number3.trim() && this.model.number4.trim())
+        {
+            var allValuesAvailable = true;
+        }
+        
+        if(!allValuesAvailable || isNaN(this.model.number1) || isNaN(this.model.number2) || isNaN(this.model.number3) || isNaN(this.model.number4))
         {
             this.model.isCodeNaN = true;
-        }   
-        if(!this.model.number1 || !this.model.number2 || !this.model.number3 || !this.model.number4)
-        {
-            this.model.isCodeNaN = true;
-        }     
+        }           
         else
         {
             this.model.isCodeNaN = false;
         }
         let finalCode = this.model.number1 + '' + this.model.number2 + '' + this.model.number3 + '' + this.model.number4;
         
-        //   var tempObj = (<HTMLInputElement>document.getElementById(nextCtrl));
-        //   tempObj.focus();
-        //   this.focusme1 = false;
-        //     this.focusme3 = true;
-        //   console.log("temp", tempObj);
-        //   if(!isNaN(parseFloat(modelValue)))
-        //   {
-        //     document.getElementById(nextCtrl).focus();
-        //     let textObj = this.el.nativeElement.querySelector('#number3');
-        //     textObj.focus();
-        //   }
-        //   else
-        //   {
-        //       document.getElementById(currentCtrl).focus();
-        //   }          
+        this._ngZone.runOutsideAngular(() => { 
+            setTimeout(() => this.setFocus(nextCtrlName), 0);
+        });   
     }
+
+    setFocus(elementRef) {
+        if(elementRef)
+        {
+            document.getElementById(elementRef).focus();
+        }        
+    }       
     validateMobilenumber() {
         var phoneno = /^\d{10}$/;
         this.model.isValidMobile = true;
@@ -90,7 +92,22 @@ export class MobileVerificationComponent implements AfterViewInit {
         }
     }
     verifyMobCode()
-    {       
+    {   
+        var allValuesAvailable = false;
+        if(this.model.number1.trim() && this.model.number2.trim() && this.model.number3.trim() && this.model.number4.trim())
+        {
+            var allValuesAvailable = true;
+        }
+        
+        if(!allValuesAvailable || isNaN(this.model.number1) || isNaN(this.model.number2) || isNaN(this.model.number3) || isNaN(this.model.number4))
+        {
+            this.model.isCodeNaN = true;
+        }           
+        else
+        {
+            this.model.isCodeNaN = false;
+        }
+
         if(!this.model.isCodeNaN)
         {
             let finalCode = this.model.number1 + '' + this.model.number2 + '' + this.model.number3 + '' + this.model.number4;
